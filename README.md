@@ -1,8 +1,8 @@
 <h1>Unit 3 Final Project: Algorthmic Drawing With Kinect </h1>
 
-<strong>Interaction</strong>:
+<strong>Interaction</strong>: Hands with the kinect will be the kind of human computer interaction that will take place
 
-<strong>Description</strong>:
+<strong>Description</strong>: The program takes your hands in puts them with the kinect. It draw a bunch of random sized triangles with three different colors and varied sizes and postions between the two hands.
 
 <h2>Timeline</h2>
 
