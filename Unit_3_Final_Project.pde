@@ -19,10 +19,11 @@ ArrayList <SkeletonData> bodies;
 
 void setup()
 {
-
   fullScreen();
+  //makes a image for the background
   triangles=createImage(width, height, ARGB);
   background(0);
+  //inits the drawing and the kinect
   Tri = new Drawing();
   kinect = new Kinect(this);
   fill (255);
@@ -32,16 +33,20 @@ void setup()
 
 void draw()
 {
+ 
   for (int i=0; i<bodies.size (); i++) 
   {
     drawSkeleton(bodies.get(i));
     drawPosition(bodies.get(i));
   }
+  //starts by running the drawings
   Tri.Setpos(lx, ly, rx, ry);
   Tri.Draw();
-  image(kinect.GetDepth(), width-320, height-240, 320, 240 ); 
+  
   loadPixels();
   triangles.loadPixels();
+  
+  //this checks the colors of the pixels
   for ( int i =0; i<pixels.length; i++)
   {
     if (pixels[i] == BLUE)
@@ -61,22 +66,22 @@ void draw()
       triangles.pixels[i] = color(0, 0, 0, 0);
     }
   }
+  //load background
   triangles.updatePixels();
   background(0);
   image(triangles, 0, 0);
+  //sets the pos of the drawing and draws them
   Tri.Setpos(lx, ly, rx, ry);
   Tri.Draw();
   fill(255, 0, 0);
   ellipse(rx, ry, 50, 50);
   ellipse(lx, ly, 50, 50);
-/*  if (rx>=lx+15 || rx<=lx+15)
+  
+  if (rx>=lx-25 && rx<=lx+25 || ry>=ly-15 && ry<=ly+15)
   {
-   if (ry>=ly+15 || ry<=ly+15)
-   {
      background(0);
-   }
   }
-  */
+  
 }
 
 
@@ -87,6 +92,7 @@ void drawPosition(SkeletonData _s)
   fill(255);
 }
 
+//plot the body
 void drawSkeleton(SkeletonData _s) 
 {
   //left hand 
@@ -94,7 +100,7 @@ void drawSkeleton(SkeletonData _s)
   //right hand
   DrawHand(_s, Kinect.NUI_SKELETON_POSITION_HAND_RIGHT, 0);
 }
-
+//draw the hands
 void DrawHand(SkeletonData _s, int _hand, int h)
 {
   if (_s.skeletonPositionTrackingState[_hand] != Kinect.NUI_SKELETON_POSITION_NOT_TRACKED)
@@ -124,7 +130,7 @@ void DrawBone(SkeletonData _s, int _j1, int _j2)
       _s.skeletonPositions[_j2].y*height);
   }
 }
-
+//tracking the hands
 void appearEvent(SkeletonData _s) 
 {
   if (_s.trackingState == Kinect.NUI_SKELETON_NOT_TRACKED) 
